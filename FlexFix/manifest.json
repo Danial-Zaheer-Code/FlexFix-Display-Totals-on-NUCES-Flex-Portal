@@ -1,22 +1,28 @@
 {
   "name": "FlexFix",
-  "version": "0.0.2",
-  "manifest_version": 2,
+  "version": "0.0.3",
+  "manifest_version": 3,
   "description": "Displays the total and obtained absolutes on the FAST NUCES Flex Student Portal",
   "homepage_url": "http://github.com/mmaarij",
-  "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": true
-  },
-  "browser_action": {
+  "action": {
     "default_title": "FlexFix"
   },
+  "background": {
+    "service_worker": "background.js"
+  },
   "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
     "https://*/*",
-    "http://*/*",
-    "tabs"
+    "http://*/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["https://flexstudent.nu.edu.pk/*"]
+    }
   ],
   "icons": {
     "16": "icon.png",
