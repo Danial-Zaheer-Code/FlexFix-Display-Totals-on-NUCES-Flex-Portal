@@ -1,25 +1,25 @@
 (function () {
 	const portlet = document.querySelector('.m-portlet');
 
-	let totalMarksElement = portlet.querySelector('h5[data-type="total"]');
-	let obtainedMarksElement = portlet.querySelector('h5[data-type="obtained"]');
-	let classAverageElement = portlet.querySelector('h5[data-type="classAverage"]');
+	let totalAbsolutesElement = portlet.querySelector('h5[data-type="total"]');
+	let obtainedAbsolutesElement = portlet.querySelector('h5[data-type="obtained"]');
+	let averageAbsolutesElement = portlet.querySelector('h5[data-type="classAverage"]');
 	let redirectButton = portlet.querySelector('button[data-type="redirect"]');
 
-	if (!isElementExist(totalMarksElement)) {
-		totalMarksElement = createElement("h5", "data-type", "total");
-		totalMarksElement.style.marginTop = '7px';
-		portlet.appendChild(totalMarksElement);
+	if (!isElementExist(totalAbsolutesElement)) {
+		totalAbsolutesElement = createElement("h5", "data-type", "total");
+		totalAbsolutesElement.style.marginTop = '7px';
+		portlet.appendChild(totalAbsolutesElement);
 	}
 
-	if (!isElementExist(obtainedMarksElement)) {
-		obtainedMarksElement = createElement("h5", "data-type", "obtained");
-		portlet.appendChild(obtainedMarksElement);
+	if (!isElementExist(obtainedAbsolutesElement)) {
+		obtainedAbsolutesElement = createElement("h5", "data-type", "obtained");
+		portlet.appendChild(obtainedAbsolutesElement);
 	}
 
-	if (!isElementExist(classAverageElement)) {
-		classAverageElement = createElement("h5", "data-type", "classAverage");
-		portlet.appendChild(classAverageElement);
+	if (!isElementExist(averageAbsolutesElement)) {
+		averageAbsolutesElement = createElement("h5", "data-type", "classAverage");
+		portlet.appendChild(averageAbsolutesElement);
 	}
 
 	if (!isElementExist(redirectButton)) {
@@ -91,22 +91,20 @@
 			continue;
 		}
 
-		if (tableWeightageSum != 0 && rowsCalculatedAverage != 0) {
+		if (tableWeightageSum != 0) {
 			rowsCalculatedAverage = rowsCalculatedAverage / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
 			totalAverage += rowsCalculatedAverage;
 		}
 
-
 		totalWeightage += parseFloat(tableTotalWeigtage[0].textContent)
 		totalObtMarks += parseFloat(tableTotalObtMarks[0].textContent)
-
 	}
 
 	var finalCalculateAverage = isNaN(totalAverage) ? "Cannot Calculate, Missing Data" : totalAverage.toFixed(2)
 
-	totalMarksElement.textContent = 'Total Absolutes: ' + totalWeightage.toFixed(2);
-	obtainedMarksElement.textContent = 'Obtained Absolutes: ' + totalObtMarks.toFixed(2);
-	classAverageElement.textContent = 'Class Average: ' + finalCalculateAverage;
+	totalAbsolutesElement.textContent = 'Total Absolutes: ' + totalWeightage.toFixed(2);
+	obtainedAbsolutesElement.textContent = 'Obtained Absolutes: ' + totalObtMarks.toFixed(2);
+	averageAbsolutesElement.textContent = 'Class Average: ' + finalCalculateAverage;
 
 	chrome.runtime.sendMessage('pageChange');
 })();
