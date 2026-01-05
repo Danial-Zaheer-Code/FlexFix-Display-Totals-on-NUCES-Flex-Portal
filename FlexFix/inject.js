@@ -90,17 +90,17 @@
 		}
 
 		// calculate the average for the table
-		var totalSection = table.querySelectorAll('[class*="totalColumn_"]');
+		const totalSection = table.querySelectorAll('[class*="totalColumn_"]');
 		if (totalSection.length == 1 && tableWeightageSum != 0 && rowCalculatedAverage != 0 && totalSection[0].querySelectorAll(".totalColweightage").length == 1) {
-			var tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
+			const tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
 			rowCalculatedAverage = rowCalculatedAverage / tableWeightageSum * parseFloat(tableColWeigtage[0].textContent);
 			totalAverage += rowCalculatedAverage;
 		}
 
 		// calculate the total and obtained marks for the table
 		if (totalSection.length == 1) {
-			var _tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
-			var _tableColObtMarks = totalSection[0].querySelectorAll(".totalColObtMarks")
+			const _tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
+			const _tableColObtMarks = totalSection[0].querySelectorAll(".totalColObtMarks")
 			if (_tableColWeigtage.length == 1 && _tableColObtMarks.length == 1) {
 				totalWeightage += parseFloat(_tableColWeigtage[0].textContent)
 				totalObtMarks += parseFloat(_tableColObtMarks[0].textContent)
