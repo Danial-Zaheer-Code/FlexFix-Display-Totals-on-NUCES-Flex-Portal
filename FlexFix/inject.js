@@ -51,8 +51,8 @@
 	const currentSubjectDiv = document.querySelector('.tab-pane.active');
 
 	let totalWeightage = 0;
-	let totalObtMarks = 0;
-	let totalAverage = 0;
+	let totalObtainedAbsolutes = 0;
+	let totalAverageAbsolutes = 0;
 
 	let tables = currentSubjectDiv.querySelectorAll('.sum_table');
 
@@ -92,17 +92,17 @@
 
 		if (tableWeightageSum != 0) {
 			rowsCalculatedAverage = rowsCalculatedAverage / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
-			totalAverage += rowsCalculatedAverage;
+			totalAverageAbsolutes += rowsCalculatedAverage;
 		}
 
 		totalWeightage += parseFloat(tableTotalWeigtage[0].textContent)
-		totalObtMarks += parseFloat(tableTotalObtMarks[0].textContent)
+		totalObtainedAbsolutes += parseFloat(tableTotalObtMarks[0].textContent)
 	}
 
-	var finalCalculateAverage = isNaN(totalAverage) ? "Cannot Calculate, Missing Data" : totalAverage.toFixed(2)
+	var finalCalculateAverage = isNaN(totalAverageAbsolutes) ? "Cannot Calculate, Missing Data" : totalAverageAbsolutes.toFixed(2)
 
 	totalAbsolutesElement.textContent = 'Total Absolutes: ' + totalWeightage.toFixed(2);
-	obtainedAbsolutesElement.textContent = 'Obtained Absolutes: ' + totalObtMarks.toFixed(2);
+	obtainedAbsolutesElement.textContent = 'Obtained Absolutes: ' + totalObtainedAbsolutes.toFixed(2);
 	averageAbsolutesElement.textContent = 'Class Average: ' + finalCalculateAverage;
 
 	chrome.runtime.sendMessage('pageChange');
