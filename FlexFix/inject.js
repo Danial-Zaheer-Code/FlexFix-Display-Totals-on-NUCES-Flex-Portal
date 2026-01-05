@@ -60,7 +60,7 @@
 		const table = tables[i];
 
 		const tableRows = table.querySelectorAll(".calculationrow");
-		let rowsCalculatedAverage = 0
+		let rowsCalculatedAverageAbsolutes = 0
 		let tableWeightageSum = 0
 
 		for (let j = 0; j < tableRows.length; j++) {
@@ -74,7 +74,7 @@
 			}
 
 			tableWeightageSum += parseFloat(rowWeight[0].textContent);
-			rowsCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
+			rowsCalculatedAverageAbsolutes += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
 		}
 
 		const totalSection = table.querySelectorAll('[class*="totalColumn_"]');
@@ -84,30 +84,29 @@
 		}
 
 		const tableTotalWeigtage = totalSection[0].querySelectorAll(".totalColweightage");
-		const tableTotalObtMarks = totalSection[0].querySelectorAll(".totalColObtMarks");
+		const tableTotalObtainedAbsolutes = totalSection[0].querySelectorAll(".totalColObtMarks");
 
-		if (tableTotalObtMarks.length !== 1 || tableTotalWeigtage.length !== 1) {
+		if (tableTotalObtainedAbsolutes.length !== 1 || tableTotalWeigtage.length !== 1) {
 			continue;
 		}
 
 		if (tableWeightageSum != 0) {
-			rowsCalculatedAverage = rowsCalculatedAverage / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
-			totalAverageAbsolutes += rowsCalculatedAverage;
+			rowsCalculatedAverageAbsolutes = rowsCalculatedAverageAbsolutes / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
+			totalAverageAbsolutes += rowsCalculatedAverageAbsolutes;
 		}
 
 		totalWeightage += parseFloat(tableTotalWeigtage[0].textContent)
-		totalObtainedAbsolutes += parseFloat(tableTotalObtMarks[0].textContent)
+		totalObtainedAbsolutes += parseFloat(tableTotalObtainedAbsolutes[0].textContent)
 	}
 
-	const finalCalculateAverage = isNaN(totalAverageAbsolutes) ? "Cannot Calculate, Missing Data" : totalAverageAbsolutes.toFixed(2)
+	const finalTotalAverageAbsolutes = isNaN(totalAverageAbsolutes) ? "Cannot Calculate, Missing Data" : totalAverageAbsolutes.toFixed(2)
 
 	totalAbsolutesElement.textContent = 'Total Absolutes: ' + totalWeightage.toFixed(2);
 	obtainedAbsolutesElement.textContent = 'Obtained Absolutes: ' + totalObtainedAbsolutes.toFixed(2);
-	averageAbsolutesElement.textContent = 'Class Average: ' + finalCalculateAverage;
+	averageAbsolutesElement.textContent = 'Class Average: ' + finalTotalAverageAbsolutes;
 
 	chrome.runtime.sendMessage('pageChange');
 })();
-
 
 function isElementExist(element) {
 	return element !== null && element !== undefined;
