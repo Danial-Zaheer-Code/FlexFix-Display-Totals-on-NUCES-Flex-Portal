@@ -1,14 +1,11 @@
 (function () {
-	// Find the div with class "m-portlet"
 	const portlet = document.querySelector('.m-portlet');
 
-	// Check if the total and obtained marks elements already exist
 	let totalMarksElement = portlet.querySelector('h5[data-type="total"]');
 	let obtainedMarksElement = portlet.querySelector('h5[data-type="obtained"]');
 	let classAverageElement = portlet.querySelector('h5[data-type="classAverage"]');
 	let redirectButton = portlet.querySelector('button[data-type="redirect"]');
 
-	// If the elements don't exist, create new ones and append them to the portlet
 	if (!isElementExist(totalMarksElement)) {
 		totalMarksElement = createElement("h5", "data-type", "total");
 		totalMarksElement.style.marginTop = '7px';
@@ -51,45 +48,36 @@
 		portlet.appendChild(containerDiv);
 	}
 
+	const currentSubjectDiv = document.querySelector('.tab-pane.active');
 
-	// Find the div with class "active"
-	const activeDiv = document.querySelector('.tab-pane.active');
-
-	// Initialize the total, obtained marks and average to 0
 	let totalWeightage = 0;
 	let totalObtMarks = 0;
 	let totalAverage = 0;
 
-	// get all marks table
-	let tables = activeDiv.querySelectorAll('.sum_table');
+	let tables = currentSubjectDiv.querySelectorAll('.sum_table');
 
-	// iterate over all tables
 	for (var i = 0; i < tables.length; i++) {
 		const table = tables[i];
 
-		// get all rows in the table
-		const rows = table.querySelectorAll(".calculationrow");
+		const tableRows = table.querySelectorAll(".calculationrow");
 		let rowCalculatedAverage = 0
 		let tableWeightageSum = 0
 
-		// iterate over all rows
-		for (var j = 0; j < rows.length; j++) {
+		for (var j = 0; j < tableRows.length; j++) {
 
-			// extract all weightage, average and total marks elements
-			const rowWeight = rows[j].querySelectorAll(".weightage");
-			const rowAverageMarks = rows[j].querySelectorAll(".AverageMarks");
-			const rowTotalMarks = rows[j].querySelectorAll(".GrandTotal");
+			const rowWeight = tableRows[j].querySelectorAll(".weightage");
+			const rowAverageMarks = tableRows[j].querySelectorAll(".AverageMarks");
+			const rowTotalMarks = tableRows[j].querySelectorAll(".GrandTotal");
 
 			if (isEmptyOrZero(rowWeight) || isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)) {
 				continue;
 			}
-			// calculate the average for the row
+
 			tableWeightageSum += parseFloat(rowWeight[0].textContent);
 			rowCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
 
 		}
 
-		// calculate the average for the table
 		const totalSection = table.querySelectorAll('[class*="totalColumn_"]');
 		if (totalSection.length == 1 && tableWeightageSum != 0 && rowCalculatedAverage != 0 && totalSection[0].querySelectorAll(".totalColweightage").length == 1) {
 			const tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
@@ -97,7 +85,6 @@
 			totalAverage += rowCalculatedAverage;
 		}
 
-		// calculate the total and obtained marks for the table
 		if (totalSection.length == 1) {
 			const _tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
 			const _tableColObtMarks = totalSection[0].querySelectorAll(".totalColObtMarks")
@@ -107,10 +94,9 @@
 			}
 		}
 	}
-	// check if average was calculated or not
+
 	var finalCalculateAverage = isNaN(totalAverage) ? "Cannot Calculate, Missing Data" : totalAverage.toFixed(2)
 
-	// Update the content of the total and obtained marks elements
 	totalMarksElement.textContent = 'Total Absolutes: ' + totalWeightage.toFixed(2);
 	obtainedMarksElement.textContent = 'Obtained Absolutes: ' + totalObtMarks.toFixed(2);
 	classAverageElement.textContent = 'Class Average: ' + finalCalculateAverage;
