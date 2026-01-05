@@ -79,10 +79,9 @@
 			const rowWeight = rows[j].querySelectorAll(".weightage");
 			const rowAverageMarks = rows[j].querySelectorAll(".AverageMarks");
 			const rowTotalMarks = rows[j].querySelectorAll(".GrandTotal");
-			if (rowWeight.length == 0 || rowWeight[0].textContent == "0 " ||
-				rowAverageMarks.length == 0 || rowAverageMarks[0].textContent == "0 " ||
-				rowTotalMarks.length == 0 || rowTotalMarks[0].textContent == "0 ") {
-				continue
+
+			if(isEmptyOrZero(rowWeight) || isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)){
+				continue;
 			} else {
 				// calculate the average for the row
 				tableWeightageSum += parseFloat(rowWeight[0].textContent);
@@ -130,4 +129,9 @@ function createElement(tag, attribute, value) {
 	element.style.color = 'white';
 	element.style.marginLeft = '30px';
 	return element;
+}
+
+
+function isEmptyOrZero(row) {
+    return row.length === 0 || row[0].textContent.trim() === "0";
 }
