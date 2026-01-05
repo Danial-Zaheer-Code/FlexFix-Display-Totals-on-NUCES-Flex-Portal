@@ -75,7 +75,6 @@
 
 			tableWeightageSum += parseFloat(rowWeight[0].textContent);
 			rowsCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
-
 		}
 
 		const totalSection = table.querySelectorAll('[class*="totalColumn_"]');
