@@ -58,17 +58,17 @@
 	// Initialize the total, obtained marks and average to 0
 	let totalWeightage = 0;
 	let totalObtMarks = 0;
-	let totalAverage = 0
+	let totalAverage = 0;
 
 	// get all marks table
 	let tables = activeDiv.querySelectorAll('.sum_table');
 
 	// iterate over all tables
 	for (var i = 0; i < tables.length; i++) {
-		var table = tables[i];
+		const table = tables[i];
 
 		// get all rows in the table
-		var rows = table.querySelectorAll(".calculationrow");
+		const rows = table.querySelectorAll(".calculationrow");
 		let rowCalculatedAverage = 0
 		let tableWeightageSum = 0
 
