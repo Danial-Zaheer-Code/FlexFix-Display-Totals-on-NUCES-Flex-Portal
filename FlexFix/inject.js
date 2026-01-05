@@ -10,30 +10,22 @@
 
   // If the elements don't exist, create new ones and append them to the portlet
   if (!isElementExist(totalMarksElement)) {
-    totalMarksElement = document.createElement('h5');
-    totalMarksElement.setAttribute('data-type', 'total');
-    totalMarksElement.style.color = 'white';
-    totalMarksElement.style.marginLeft = '30px';
+    totalMarksElement = createElement("h5","data-type","total");
     totalMarksElement.style.marginTop = '7px';
     portlet.appendChild(totalMarksElement);
   }
 
   if (!isElementExist(obtainedMarksElement)) {
-    obtainedMarksElement = document.createElement('h5');
-    obtainedMarksElement.setAttribute('data-type', 'obtained');
-    obtainedMarksElement.style.color = 'white';
-    obtainedMarksElement.style.marginLeft = '30px';
+    obtainedMarksElement = createElement("h5","data-type","obtained");
     portlet.appendChild(obtainedMarksElement);
   }
 
   if (!isElementExist(classAverageElement)) {
-    classAverageElement = document.createElement('h5');
-    classAverageElement.setAttribute('data-type', 'classAverage');
-    classAverageElement.style.color = 'white';
-    classAverageElement.style.marginLeft = '30px';
+    classAverageElement = createElement("h5","data-type","classAverage");
     portlet.appendChild(classAverageElement);
   }
-  if (!redirectButton) {
+
+  if (!isElementExist(redirectButton)) {
     redirectButton = document.createElement('button');
     redirectButton.setAttribute('data-type', 'redirect');
     redirectButton.style.color = 'black';
@@ -126,3 +118,10 @@ function isElementExist(element){
   return element !== null && element !== undefined;
 }
 
+function createElement(tag, attribute, value){
+  const element = document.createElement(tag);
+  element.setAttribute(attribute, value);
+  element.style.color = 'white';
+  element.style.marginLeft = '30px';
+  return element;
+}
