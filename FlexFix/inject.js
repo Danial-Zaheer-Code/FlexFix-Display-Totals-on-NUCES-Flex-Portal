@@ -9,7 +9,7 @@
   let redirectButton = portlet.querySelector('button[data-type="redirect"]');
 
   // If the elements don't exist, create new ones and append them to the portlet
-  if (!totalMarksElement) {
+  if (!isElementExist(totalMarksElement)) {
     totalMarksElement = document.createElement('h5');
     totalMarksElement.setAttribute('data-type', 'total');
     totalMarksElement.style.color = 'white';
@@ -18,7 +18,7 @@
     portlet.appendChild(totalMarksElement);
   }
 
-  if (!obtainedMarksElement) {
+  if (!isElementExist(obtainedMarksElement)) {
     obtainedMarksElement = document.createElement('h5');
     obtainedMarksElement.setAttribute('data-type', 'obtained');
     obtainedMarksElement.style.color = 'white';
@@ -26,7 +26,7 @@
     portlet.appendChild(obtainedMarksElement);
   }
 
-  if (!classAverageElement) {
+  if (!isElementExist(classAverageElement)) {
     classAverageElement = document.createElement('h5');
     classAverageElement.setAttribute('data-type', 'classAverage');
     classAverageElement.style.color = 'white';
@@ -120,3 +120,9 @@
 
   chrome.runtime.sendMessage('pageChange');
 })();
+
+
+function isElementExist(element){
+  return element !== null && element !== undefined;
+}
+
