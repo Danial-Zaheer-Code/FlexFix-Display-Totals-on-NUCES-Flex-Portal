@@ -79,19 +79,22 @@
 		}
 
 		const totalSection = table.querySelectorAll('[class*="totalColumn_"]');
-		if (totalSection.length == 1 && tableWeightageSum != 0 && rowCalculatedAverage != 0 && totalSection[0].querySelectorAll(".totalColweightage").length == 1) {
+
+		if (totalSection.length !== 1) {
+			continue;
+		}
+
+		if (tableWeightageSum != 0 && rowCalculatedAverage != 0 && totalSection[0].querySelectorAll(".totalColweightage").length == 1) {
 			const tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
 			rowCalculatedAverage = rowCalculatedAverage / tableWeightageSum * parseFloat(tableColWeigtage[0].textContent);
 			totalAverage += rowCalculatedAverage;
 		}
 
-		if (totalSection.length == 1) {
-			const _tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
-			const _tableColObtMarks = totalSection[0].querySelectorAll(".totalColObtMarks")
-			if (_tableColWeigtage.length == 1 && _tableColObtMarks.length == 1) {
-				totalWeightage += parseFloat(_tableColWeigtage[0].textContent)
-				totalObtMarks += parseFloat(_tableColObtMarks[0].textContent)
-			}
+		const _tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
+		const _tableColObtMarks = totalSection[0].querySelectorAll(".totalColObtMarks")
+		if (_tableColWeigtage.length == 1 && _tableColObtMarks.length == 1) {
+			totalWeightage += parseFloat(_tableColWeigtage[0].textContent)
+			totalObtMarks += parseFloat(_tableColObtMarks[0].textContent)
 		}
 	}
 
