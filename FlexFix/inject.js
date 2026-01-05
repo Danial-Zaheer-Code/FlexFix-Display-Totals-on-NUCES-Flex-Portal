@@ -80,13 +80,13 @@
 			const rowAverageMarks = rows[j].querySelectorAll(".AverageMarks");
 			const rowTotalMarks = rows[j].querySelectorAll(".GrandTotal");
 
-			if(isEmptyOrZero(rowWeight) || isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)){
+			if (isEmptyOrZero(rowWeight) || isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)) {
 				continue;
-			} else {
-				// calculate the average for the row
-				tableWeightageSum += parseFloat(rowWeight[0].textContent);
-				rowCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
 			}
+			// calculate the average for the row
+			tableWeightageSum += parseFloat(rowWeight[0].textContent);
+			rowCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
+
 		}
 
 		// calculate the average for the table
@@ -133,5 +133,5 @@ function createElement(tag, attribute, value) {
 
 
 function isEmptyOrZero(row) {
-    return row.length === 0 || row[0].textContent.trim() === "0";
+	return row.length === 0 || row[0].textContent.trim() === "0";
 }
