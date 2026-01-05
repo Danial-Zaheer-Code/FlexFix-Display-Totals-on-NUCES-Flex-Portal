@@ -76,9 +76,9 @@
 		for (var j = 0; j < rows.length; j++) {
 
 			// extract all weightage, average and total marks elements
-			var rowWeight = rows[j].querySelectorAll(".weightage");
-			var rowAverageMarks = rows[j].querySelectorAll(".AverageMarks");
-			var rowTotalMarks = rows[j].querySelectorAll(".GrandTotal");
+			const rowWeight = rows[j].querySelectorAll(".weightage");
+			const rowAverageMarks = rows[j].querySelectorAll(".AverageMarks");
+			const rowTotalMarks = rows[j].querySelectorAll(".GrandTotal");
 			if (rowWeight.length == 0 || rowWeight[0].textContent == "0 " ||
 				rowAverageMarks.length == 0 || rowAverageMarks[0].textContent == "0 " ||
 				rowTotalMarks.length == 0 || rowTotalMarks[0].textContent == "0 ") {
