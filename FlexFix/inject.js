@@ -60,7 +60,7 @@
 		const table = tables[i];
 
 		const tableRows = table.querySelectorAll(".calculationrow");
-		let rowCalculatedAverage = 0
+		let rowsCalculatedAverage = 0
 		let tableWeightageSum = 0
 
 		for (var j = 0; j < tableRows.length; j++) {
@@ -74,7 +74,7 @@
 			}
 
 			tableWeightageSum += parseFloat(rowWeight[0].textContent);
-			rowCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
+			rowsCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
 
 		}
 
@@ -84,18 +84,22 @@
 			continue;
 		}
 
-		if (tableWeightageSum != 0 && rowCalculatedAverage != 0 && totalSection[0].querySelectorAll(".totalColweightage").length == 1) {
-			const tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
-			rowCalculatedAverage = rowCalculatedAverage / tableWeightageSum * parseFloat(tableColWeigtage[0].textContent);
-			totalAverage += rowCalculatedAverage;
+		const tableTotalWeigtage = totalSection[0].querySelectorAll(".totalColweightage");
+		const tableTotalObtMarks = totalSection[0].querySelectorAll(".totalColObtMarks");
+
+		if (tableTotalObtMarks.length !== 1 || tableTotalWeigtage.length !== 1) {
+			continue;
 		}
 
-		const _tableColWeigtage = totalSection[0].querySelectorAll(".totalColweightage")
-		const _tableColObtMarks = totalSection[0].querySelectorAll(".totalColObtMarks")
-		if (_tableColWeigtage.length == 1 && _tableColObtMarks.length == 1) {
-			totalWeightage += parseFloat(_tableColWeigtage[0].textContent)
-			totalObtMarks += parseFloat(_tableColObtMarks[0].textContent)
+		if (tableWeightageSum != 0 && rowsCalculatedAverage != 0) {
+			rowsCalculatedAverage = rowsCalculatedAverage / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
+			totalAverage += rowsCalculatedAverage;
 		}
+
+
+		totalWeightage += parseFloat(tableTotalWeigtage[0].textContent)
+		totalObtMarks += parseFloat(tableTotalObtMarks[0].textContent)
+
 	}
 
 	var finalCalculateAverage = isNaN(totalAverage) ? "Cannot Calculate, Missing Data" : totalAverage.toFixed(2)
@@ -119,7 +123,6 @@ function createElement(tag, attribute, value) {
 	element.style.marginLeft = '30px';
 	return element;
 }
-
 
 function isEmptyOrZero(row) {
 	return row.length === 0 || row[0].textContent.trim() === "0";
