@@ -56,14 +56,14 @@
 
 	let tables = currentSubjectDiv.querySelectorAll('.sum_table');
 
-	for (var i = 0; i < tables.length; i++) {
+	for (let i = 0; i < tables.length; i++) {
 		const table = tables[i];
 
 		const tableRows = table.querySelectorAll(".calculationrow");
 		let rowsCalculatedAverage = 0
 		let tableWeightageSum = 0
 
-		for (var j = 0; j < tableRows.length; j++) {
+		for (let j = 0; j < tableRows.length; j++) {
 
 			const rowWeight = tableRows[j].querySelectorAll(".weightage");
 			const rowAverageMarks = tableRows[j].querySelectorAll(".AverageMarks");
@@ -99,7 +99,7 @@
 		totalObtainedAbsolutes += parseFloat(tableTotalObtMarks[0].textContent)
 	}
 
-	var finalCalculateAverage = isNaN(totalAverageAbsolutes) ? "Cannot Calculate, Missing Data" : totalAverageAbsolutes.toFixed(2)
+	const finalCalculateAverage = isNaN(totalAverageAbsolutes) ? "Cannot Calculate, Missing Data" : totalAverageAbsolutes.toFixed(2)
 
 	totalAbsolutesElement.textContent = 'Total Absolutes: ' + totalWeightage.toFixed(2);
 	obtainedAbsolutesElement.textContent = 'Obtained Absolutes: ' + totalObtainedAbsolutes.toFixed(2);
