@@ -78,15 +78,15 @@
 			// extract all weightage, average and total marks elements
 			var rowWeight = rows[j].querySelectorAll(".weightage");
 			var rowAverageMarks = rows[j].querySelectorAll(".AverageMarks");
-			var totalMarksRow = rows[j].querySelectorAll(".GrandTotal");
+			var rowTotalMarks = rows[j].querySelectorAll(".GrandTotal");
 			if (rowWeight.length == 0 || rowWeight[0].textContent == "0 " ||
 				rowAverageMarks.length == 0 || rowAverageMarks[0].textContent == "0 " ||
-				totalMarksRow.length == 0 || totalMarksRow[0].textContent == "0 ") {
+				rowTotalMarks.length == 0 || rowTotalMarks[0].textContent == "0 ") {
 				continue
 			} else {
 				// calculate the average for the row
 				tableWeightageSum += parseFloat(rowWeight[0].textContent);
-				rowCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(totalMarksRow[0].textContent)) * parseFloat(rowWeight[0].textContent);
+				rowCalculatedAverage += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
 			}
 		}
 
