@@ -1,11 +1,15 @@
 (function () {
+
+	//Get the div to display the output.
 	const portlet = document.querySelector('.m-portlet');
 
+	//Get all the elements of output div.
 	let totalAbsolutesElement = portlet.querySelector('h5[data-type="total"]');
 	let obtainedAbsolutesElement = portlet.querySelector('h5[data-type="obtained"]');
 	let averageAbsolutesElement = portlet.querySelector('h5[data-type="classAverage"]');
 	let redirectButton = portlet.querySelector('button[data-type="redirect"]');
 
+	//If any element don't exist then add it into output div.
 	if (!isElementExist(totalAbsolutesElement)) {
 		totalAbsolutesElement = createElement("h5", "data-type", "total");
 		totalAbsolutesElement.style.marginTop = '7px';
@@ -48,21 +52,26 @@
 		portlet.appendChild(containerDiv);
 	}
 
+	//Get the current opened subject.
 	const currentSubjectDiv = document.querySelector('.tab-pane.active');
 
 	let totalWeightage = 0;
 	let totalObtainedAbsolutes = 0;
 	let totalAverageAbsolutes = 0;
 
+	//Get all the evaluation tables for current subject. i.e Assignment, Quiz.
 	let tables = currentSubjectDiv.querySelectorAll('.sum_table');
 
+	//Iterate over all table for current subject.
 	for (let i = 0; i < tables.length; i++) {
 		const table = tables[i];
 
+		//Get all rows for this table.
 		const tableRows = table.querySelectorAll(".calculationrow");
 		let rowsCalculatedAverageAbsolutes = 0
 		let tableWeightageSum = 0
 
+		//Iterate over all the rows for this table
 		for (let j = 0; j < tableRows.length; j++) {
 
 			const rowWeight = tableRows[j].querySelectorAll(".weightage");
@@ -77,19 +86,24 @@
 			rowsCalculatedAverageAbsolutes += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
 		}
 
+		//Get the last row of each table. Which is the "total" row.
 		const totalSection = table.querySelectorAll('[class*="totalColumn_"]');
 
+		//Only one element should be returned
 		if (totalSection.length !== 1) {
 			continue;
 		}
 
+
 		const tableTotalWeigtage = totalSection[0].querySelectorAll(".totalColweightage");
 		const tableTotalObtainedAbsolutes = totalSection[0].querySelectorAll(".totalColObtMarks");
 
+		//Only one element should be returned from both variables
 		if (tableTotalObtainedAbsolutes.length !== 1 || tableTotalWeigtage.length !== 1) {
 			continue;
 		}
 
+		//Handle best off average.
 		if (tableWeightageSum != 0) {
 			rowsCalculatedAverageAbsolutes = rowsCalculatedAverageAbsolutes / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
 			totalAverageAbsolutes += rowsCalculatedAverageAbsolutes;
