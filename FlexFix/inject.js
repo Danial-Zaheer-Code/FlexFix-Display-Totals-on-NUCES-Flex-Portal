@@ -83,7 +83,8 @@
 			}
 
 			tableWeightageSum += parseFloat(rowWeight[0].textContent);
-			rowsCalculatedAverageAbsolutes += (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
+			const currentRowAverageAbsolutes = (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
+			rowsCalculatedAverageAbsolutes +=  currentRowAverageAbsolutes;
 		}
 
 		//Get the last row of each table. Which is the "total" row.
