@@ -68,7 +68,7 @@
 
 		//Get all rows for this table.
 		const tableRows = table.querySelectorAll(".calculationrow");
-		let rowsCalculatedAverageAbsolutes = 0
+		let rowsTotalAverageAbsolutes = 0
 		let tableWeightageSum = 0
 
 		//Iterate over all the rows for this table
@@ -84,7 +84,7 @@
 
 			tableWeightageSum += parseFloat(rowWeight[0].textContent);
 			const currentRowAverageAbsolutes = (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
-			rowsCalculatedAverageAbsolutes +=  currentRowAverageAbsolutes;
+			rowsTotalAverageAbsolutes +=  currentRowAverageAbsolutes;
 		}
 
 		//Get the last row of each table. Which is the "total" row.
@@ -106,8 +106,8 @@
 
 		//Handle best off average.
 		if (tableWeightageSum != 0) {
-			rowsCalculatedAverageAbsolutes = rowsCalculatedAverageAbsolutes / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
-			totalAverageAbsolutes += rowsCalculatedAverageAbsolutes;
+			rowsTotalAverageAbsolutes = rowsTotalAverageAbsolutes / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
+			totalAverageAbsolutes += rowsTotalAverageAbsolutes;
 		}
 
 		totalWeightage += parseFloat(tableTotalWeigtage[0].textContent)
