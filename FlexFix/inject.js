@@ -77,14 +77,18 @@
 			const rowWeight = tableRows[j].querySelectorAll(".weightage");
 			const rowAverageMarks = tableRows[j].querySelectorAll(".AverageMarks");
 			const rowTotalMarks = tableRows[j].querySelectorAll(".GrandTotal");
+			const rowMinimamMarks = tableRows[j].querySelectorAll(".MinMarks");
+			const rowMaximumMarks = tableRows[j].querySelectorAll(".MaxMarks");
 
-			if (isEmptyOrZero(rowWeight) || isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)) {
+			if (isEmptyOrZero(rowWeight) || isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)
+			 || isEmptyOrZero(rowMaximumMarks)) {
 				continue;
 			}
 
+
 			tableWeightageSum += parseFloat(rowWeight[0].textContent);
-			const currentRowAverageAbsolutes = (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
-			rowsTotalAverageAbsolutes +=  currentRowAverageAbsolutes;
+			
+			rowsTotalAverageAbsolutes += calculateAbsolutes(rowAverageMarks, rowTotalMarks, rowWeight);  
 		}
 
 		//Get the last row of each table. Which is the "total" row.
@@ -137,4 +141,9 @@ function createElement(tag, attribute, value) {
 
 function isEmptyOrZero(row) {
 	return row.length === 0 || row[0].textContent.trim() === "0";
+}
+
+function calculateAbsolutes(obtainedMarks, totalMarks, weightage){
+	return (parseFloat(obtainedMarks[0].textContent) / parseFloat(totalMarks[0].textContent)) * 
+	parseFloat(weightage[0].textContent);	
 }
