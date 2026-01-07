@@ -83,3 +83,5 @@ The extension is provided as-is, without any warranty or guarantee of its functi
 - [mmaarij](https://github.com/mmaarij)
 
 - [NabeelAhmed-090](https://github.com/NabeelAhmed-090)
+
+- [Danial Zaheer](https://github.com/Danial-Zaheer-Code)
