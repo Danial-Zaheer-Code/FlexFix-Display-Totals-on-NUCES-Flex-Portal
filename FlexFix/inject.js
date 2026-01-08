@@ -58,6 +58,7 @@
 	let totalWeightage = 0;
 	let totalObtainedAbsolutes = 0;
 	let totalAverageAbsolutes = 0;
+	let totalMaximumAbsolutes = 0;
 
 	//Get all the evaluation tables for current subject. i.e Assignment, Quiz.
 	let tables = currentSubjectDiv.querySelectorAll('.sum_table');
@@ -109,8 +110,7 @@
 
 		//Handle best off average.
 		if (tableWeightageSum != 0) {
-			rowsTotalAverageAbsolutes = rowsTotalAverageAbsolutes / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
-			totalAverageAbsolutes += rowsTotalAverageAbsolutes;
+			totalAverageAbsolutes += scaleToBestOffWeights(rowsTotalAverageAbsolutes, tableWeightageSum, parseFloat(tableTotalWeigtage[0].textContent));
 		}
 
 		totalWeightage += parseFloat(tableTotalWeigtage[0].textContent)
@@ -153,6 +153,10 @@ function isEmptyOrZero(value) {
 
 function calculateAbsolutes(obtainedMarks, totalMarks, weightage){
 	return calculateWeightedScore(obtainedMarks, totalMarks, weightage);	
+}
+
+function scaleToBestOffWeights(obtainedAbsolutes, totalAbsolutes, bestOffAbsolutes){
+	return calculateWeightedScore(obtainedAbsolutes, totalAbsolutes, bestOffAbsolutes);
 }
 
 function calculateWeightedScore(obtained, total, weightage){
