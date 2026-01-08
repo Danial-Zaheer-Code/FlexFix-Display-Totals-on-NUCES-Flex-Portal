@@ -7,6 +7,8 @@
 	let totalAbsolutesElement = portlet.querySelector('h5[data-type="total"]');
 	let obtainedAbsolutesElement = portlet.querySelector('h5[data-type="obtained"]');
 	let averageAbsolutesElement = portlet.querySelector('h5[data-type="classAverage"]');
+	let maximumAbsolutesElement = portlet.querySelector('h5[data-type="maximum"]');
+	let percentageElement = portlet.querySelector('h5[data-type="percentage"]');
 	let redirectButton = portlet.querySelector('button[data-type="redirect"]');
 
 	//If any element don't exist then add it into output div.
@@ -24,6 +26,16 @@
 	if (!isElementExist(averageAbsolutesElement)) {
 		averageAbsolutesElement = createElement("h5", "data-type", "classAverage");
 		portlet.appendChild(averageAbsolutesElement);
+	}
+
+	if(!isElementExist(maximumAbsolutesElement)){
+		maximumAbsolutesElement = createElement("h5", "data-type", "maximum");
+		portlet.appendChild(maximumAbsolutesElement);	
+	}
+
+	if(!isElementExist(percentageElement)){
+		percentageElement = createElement("h5","data-type","percentage");
+		portlet.appendChild(percentageElement);
 	}
 
 	if (!isElementExist(redirectButton)) {
@@ -58,6 +70,7 @@
 	let totalWeightage = 0;
 	let totalObtainedAbsolutes = 0;
 	let totalAverageAbsolutes = 0;
+	let totalMaximumAbsolutes = 0;
 
 	//Get all the evaluation tables for current subject. i.e Assignment, Quiz.
 	let tables = currentSubjectDiv.querySelectorAll('.sum_table');
@@ -68,23 +81,26 @@
 
 		//Get all rows for this table.
 		const tableRows = table.querySelectorAll(".calculationrow");
-		let rowsTotalAverageAbsolutes = 0
-		let tableWeightageSum = 0
+		let rowsTotalAverageAbsolutes = 0;
+		let rowsTotalMaximumAbsolutes = 0;
+		let tableWeightageSum = 0;
 
 		//Iterate over all the rows for this table
 		for (let j = 0; j < tableRows.length; j++) {
 
-			const rowWeight = tableRows[j].querySelectorAll(".weightage");
-			const rowAverageMarks = tableRows[j].querySelectorAll(".AverageMarks");
-			const rowTotalMarks = tableRows[j].querySelectorAll(".GrandTotal");
+			const rowWeight = getFloatConvertedValue(tableRows[j],".weightage"); 
+			const rowAverageMarks = getFloatConvertedValue(tableRows[j], ".AverageMarks");
+			const rowTotalMarks = getFloatConvertedValue(tableRows[j], ".GrandTotal");
+			const rowMaximumMarks = getFloatConvertedValue(tableRows[j],".MaxMarks");
 
-			if (isEmptyOrZero(rowWeight) || isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)) {
+			if (rowTotalMarks <= 0) {
 				continue;
 			}
 
-			tableWeightageSum += parseFloat(rowWeight[0].textContent);
-			const currentRowAverageAbsolutes = (parseFloat(rowAverageMarks[0].textContent) / parseFloat(rowTotalMarks[0].textContent)) * parseFloat(rowWeight[0].textContent);
-			rowsTotalAverageAbsolutes +=  currentRowAverageAbsolutes;
+
+			tableWeightageSum += rowWeight
+			rowsTotalAverageAbsolutes += calculateAbsolutes(rowAverageMarks, rowTotalMarks, rowWeight);
+			rowsTotalMaximumAbsolutes += calculateAbsolutes(rowMaximumMarks, rowTotalMarks, rowWeight);  
 		}
 
 		//Get the last row of each table. Which is the "total" row.
@@ -106,8 +122,8 @@
 
 		//Handle best off average.
 		if (tableWeightageSum != 0) {
-			rowsTotalAverageAbsolutes = rowsTotalAverageAbsolutes / tableWeightageSum * parseFloat(tableTotalWeigtage[0].textContent);
-			totalAverageAbsolutes += rowsTotalAverageAbsolutes;
+			totalAverageAbsolutes += scaleToBestOffWeights(rowsTotalAverageAbsolutes, tableWeightageSum, parseFloat(tableTotalWeigtage[0].textContent));
+			totalMaximumAbsolutes += scaleToBestOffWeights(rowsTotalMaximumAbsolutes, tableWeightageSum, parseFloat(tableTotalWeigtage[0].textContent));
 		}
 
 		totalWeightage += parseFloat(tableTotalWeigtage[0].textContent)
@@ -115,10 +131,12 @@
 	}
 
 	const finalTotalAverageAbsolutes = isNaN(totalAverageAbsolutes) ? "Cannot Calculate, Missing Data" : totalAverageAbsolutes.toFixed(2)
-
+	const finalTotalMaximumAbsolutes = isNaN(totalMaximumAbsolutes) ? "Cannot Calculate, Missing Data" : totalMaximumAbsolutes.toFixed(2);
 	totalAbsolutesElement.textContent = 'Total Absolutes: ' + totalWeightage.toFixed(2);
 	obtainedAbsolutesElement.textContent = 'Obtained Absolutes: ' + totalObtainedAbsolutes.toFixed(2);
 	averageAbsolutesElement.textContent = 'Class Average: ' + finalTotalAverageAbsolutes;
+	maximumAbsolutesElement.textContent = 'Maximum Absolutes: ' + finalTotalMaximumAbsolutes;
+	percentageElement.textContent = "Percentage: " + calculateWeightedScore(totalObtainedAbsolutes, totalWeightage, 100).toFixed(2) + "%";
 
 	chrome.runtime.sendMessage('pageChange');
 })();
@@ -135,6 +153,27 @@ function createElement(tag, attribute, value) {
 	return element;
 }
 
-function isEmptyOrZero(row) {
-	return row.length === 0 || row[0].textContent.trim() === "0";
+function getFloatConvertedValue(element, identifier){
+	const value = element.querySelectorAll(identifier);
+	if(isEmptyOrZero(value)){
+		return 0;
+	}
+
+	return parseFloat(value[0].textContent);
+}
+
+function isEmptyOrZero(value) {
+	return value.length === 0 || value[0].textContent.trim() === "0";
+}
+
+function calculateAbsolutes(obtainedMarks, totalMarks, weightage){
+	return calculateWeightedScore(obtainedMarks, totalMarks, weightage);	
+}
+
+function scaleToBestOffWeights(obtainedAbsolutes, totalAbsolutes, bestOffAbsolutes){
+	return calculateWeightedScore(obtainedAbsolutes, totalAbsolutes, bestOffAbsolutes);
+}
+
+function calculateWeightedScore(obtained, total, weightage){
+	return (obtained / total) * weightage;
 }
