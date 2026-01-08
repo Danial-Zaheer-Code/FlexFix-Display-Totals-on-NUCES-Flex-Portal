@@ -148,8 +148,8 @@ function getFloatConvertedValue(element, identifier){
 	return parseFloat(value[0].textContent);
 }
 
-function isEmptyOrZero(row) {
-	return row.length === 0 || row[0].textContent.trim() === "0";
+function isEmptyOrZero(value) {
+	return value.length === 0 || value[0].textContent.trim() === "0";
 }
 
 function calculateAbsolutes(obtainedMarks, totalMarks, weightage){
