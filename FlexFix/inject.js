@@ -68,8 +68,9 @@
 
 		//Get all rows for this table.
 		const tableRows = table.querySelectorAll(".calculationrow");
-		let rowsTotalAverageAbsolutes = 0
-		let tableWeightageSum = 0
+		let rowsTotalAverageAbsolutes = 0;
+		let rowsTotalMaximumAbsolutes = 0;
+		let tableWeightageSum = 0;
 
 		//Iterate over all the rows for this table
 		for (let j = 0; j < tableRows.length; j++) {
@@ -85,8 +86,8 @@
 
 
 			tableWeightageSum += rowWeight
-			
-			rowsTotalAverageAbsolutes += calculateAbsolutes(rowAverageMarks, rowTotalMarks, rowWeight);  
+			rowsTotalAverageAbsolutes += calculateAbsolutes(rowAverageMarks, rowTotalMarks, rowWeight);
+			rowsTotalMaximumAbsolutes += calculateAbsolutes(rowMaximumMarks, rowTotalMarks, rowWeight);  
 		}
 
 		//Get the last row of each table. Which is the "total" row.
@@ -151,6 +152,9 @@ function isEmptyOrZero(value) {
 }
 
 function calculateAbsolutes(obtainedMarks, totalMarks, weightage){
-	return (obtainedMarks / totalMarks) * weightage;	
+	return calculateWeightedScore(obtainedMarks, totalMarks, weightage);	
 }
 
+function calculateWeightedScore(obtained, total, weightage){
+	return (obtained / total) * weightage;
+}
