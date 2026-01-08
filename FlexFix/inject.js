@@ -74,19 +74,19 @@
 		//Iterate over all the rows for this table
 		for (let j = 0; j < tableRows.length; j++) {
 
-			const rowWeight = tableRows[j].querySelectorAll(".weightage");
+			const rowWeight = getFloatConvertedValue(tableRows[j],".weightage"); //tableRows[j].querySelectorAll(".weightage");
 			const rowAverageMarks = tableRows[j].querySelectorAll(".AverageMarks");
 			const rowTotalMarks = tableRows[j].querySelectorAll(".GrandTotal");
 			const rowMinimamMarks = tableRows[j].querySelectorAll(".MinMarks");
 			const rowMaximumMarks = tableRows[j].querySelectorAll(".MaxMarks");
 
-			if (isEmptyOrZero(rowWeight) || isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)
+			if (isEmptyOrZero(rowAverageMarks) || isEmptyOrZero(rowTotalMarks)
 			 || isEmptyOrZero(rowMaximumMarks)) {
 				continue;
 			}
 
 
-			tableWeightageSum += parseFloat(rowWeight[0].textContent);
+			tableWeightageSum += rowWeight//parseFloat(rowWeight[0].textContent);
 			
 			rowsTotalAverageAbsolutes += calculateAbsolutes(rowAverageMarks, rowTotalMarks, rowWeight);  
 		}
@@ -139,11 +139,21 @@ function createElement(tag, attribute, value) {
 	return element;
 }
 
+function getFloatConvertedValue(element, identifier){
+	const value = element.querySelectorAll(identifier);
+	if(isEmptyOrZero(value)){
+		return 0;
+	}
+
+	return parseFloat(value[0].textContent);
+}
+
 function isEmptyOrZero(row) {
 	return row.length === 0 || row[0].textContent.trim() === "0";
 }
 
 function calculateAbsolutes(obtainedMarks, totalMarks, weightage){
 	return (parseFloat(obtainedMarks[0].textContent) / parseFloat(totalMarks[0].textContent)) * 
-	parseFloat(weightage[0].textContent);	
+	weightage;	
 }
+
