@@ -74,17 +74,17 @@
 		//Iterate over all the rows for this table
 		for (let j = 0; j < tableRows.length; j++) {
 
-			const rowWeight = getFloatConvertedValue(tableRows[j],".weightage"); //tableRows[j].querySelectorAll(".weightage");
-			const rowAverageMarks = getFloatConvertedValue(tableRows[j], ".AverageMarks");//tableRows[j].querySelectorAll(".AverageMarks");
-			const rowTotalMarks = getFloatConvertedValue(tableRows[j], ".GrandTotal");//tableRows[j].querySelectorAll(".GrandTotal");
-			const rowMaximumMarks = getFloatConvertedValue(tableRows[j],".MaxMarks");//tableRows[j].querySelectorAll(".MaxMarks");
+			const rowWeight = getFloatConvertedValue(tableRows[j],".weightage"); 
+			const rowAverageMarks = getFloatConvertedValue(tableRows[j], ".AverageMarks");
+			const rowTotalMarks = getFloatConvertedValue(tableRows[j], ".GrandTotal");
+			const rowMaximumMarks = getFloatConvertedValue(tableRows[j],".MaxMarks");
 
 			if (rowTotalMarks <= 0) {
 				continue;
 			}
 
 
-			tableWeightageSum += rowWeight//parseFloat(rowWeight[0].textContent);
+			tableWeightageSum += rowWeight
 			
 			rowsTotalAverageAbsolutes += calculateAbsolutes(rowAverageMarks, rowTotalMarks, rowWeight);  
 		}
