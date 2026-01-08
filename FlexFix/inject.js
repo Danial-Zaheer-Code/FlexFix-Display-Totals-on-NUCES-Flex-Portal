@@ -77,11 +77,9 @@
 			const rowWeight = getFloatConvertedValue(tableRows[j],".weightage"); //tableRows[j].querySelectorAll(".weightage");
 			const rowAverageMarks = getFloatConvertedValue(tableRows[j], ".AverageMarks");//tableRows[j].querySelectorAll(".AverageMarks");
 			const rowTotalMarks = getFloatConvertedValue(tableRows[j], ".GrandTotal");//tableRows[j].querySelectorAll(".GrandTotal");
-			const rowMinimamMarks = tableRows[j].querySelectorAll(".MinMarks");
-			const rowMaximumMarks = tableRows[j].querySelectorAll(".MaxMarks");
+			const rowMaximumMarks = getFloatConvertedValue(tableRows[j],".MaxMarks");//tableRows[j].querySelectorAll(".MaxMarks");
 
-			if (rowTotalMarks <= 0
-			 || isEmptyOrZero(rowMaximumMarks)) {
+			if (rowTotalMarks <= 0) {
 				continue;
 			}
 
