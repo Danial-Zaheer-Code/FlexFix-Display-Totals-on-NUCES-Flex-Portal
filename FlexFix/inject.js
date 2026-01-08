@@ -75,12 +75,12 @@
 		for (let j = 0; j < tableRows.length; j++) {
 
 			const rowWeight = getFloatConvertedValue(tableRows[j],".weightage"); //tableRows[j].querySelectorAll(".weightage");
-			const rowAverageMarks = getFloatConvertedValue(tableRows[j], ".AverageMarks")//tableRows[j].querySelectorAll(".AverageMarks");
-			const rowTotalMarks = tableRows[j].querySelectorAll(".GrandTotal");
+			const rowAverageMarks = getFloatConvertedValue(tableRows[j], ".AverageMarks");//tableRows[j].querySelectorAll(".AverageMarks");
+			const rowTotalMarks = getFloatConvertedValue(tableRows[j], ".GrandTotal");//tableRows[j].querySelectorAll(".GrandTotal");
 			const rowMinimamMarks = tableRows[j].querySelectorAll(".MinMarks");
 			const rowMaximumMarks = tableRows[j].querySelectorAll(".MaxMarks");
 
-			if (isEmptyOrZero(rowTotalMarks)
+			if (rowTotalMarks <= 0
 			 || isEmptyOrZero(rowMaximumMarks)) {
 				continue;
 			}
@@ -153,7 +153,6 @@ function isEmptyOrZero(value) {
 }
 
 function calculateAbsolutes(obtainedMarks, totalMarks, weightage){
-	return (obtainedMarks / parseFloat(totalMarks[0].textContent)) * 
-	weightage;	
+	return (obtainedMarks / totalMarks) * weightage;	
 }
 
