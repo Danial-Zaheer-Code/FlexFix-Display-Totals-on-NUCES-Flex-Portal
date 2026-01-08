@@ -8,6 +8,7 @@
 	let obtainedAbsolutesElement = portlet.querySelector('h5[data-type="obtained"]');
 	let averageAbsolutesElement = portlet.querySelector('h5[data-type="classAverage"]');
 	let maximumAbsolutesElement = portlet.querySelector('h5[data-type="maximum"]');
+	let percentageElement = portlet.querySelector('h5[data-type="percentage"]');
 	let redirectButton = portlet.querySelector('button[data-type="redirect"]');
 
 	//If any element don't exist then add it into output div.
@@ -30,6 +31,11 @@
 	if(!isElementExist(maximumAbsolutesElement)){
 		maximumAbsolutesElement = createElement("h5", "data-type", "maximum");
 		portlet.appendChild(maximumAbsolutesElement);	
+	}
+
+	if(!isElementExist(percentageElement)){
+		percentageElement = createElement("h5","data-type","percentage");
+		portlet.appendChild(percentageElement);
 	}
 
 	if (!isElementExist(redirectButton)) {
@@ -130,6 +136,7 @@
 	obtainedAbsolutesElement.textContent = 'Obtained Absolutes: ' + totalObtainedAbsolutes.toFixed(2);
 	averageAbsolutesElement.textContent = 'Class Average: ' + finalTotalAverageAbsolutes;
 	maximumAbsolutesElement.textContent = 'Maximum Absolutes: ' + finalTotalMaximumAbsolutes;
+	percentageElement.textContent = "Percentage: " + calculateWeightedScore(totalObtainedAbsolutes, totalWeightage, 100).toFixed(2) + "%";
 
 	chrome.runtime.sendMessage('pageChange');
 })();
