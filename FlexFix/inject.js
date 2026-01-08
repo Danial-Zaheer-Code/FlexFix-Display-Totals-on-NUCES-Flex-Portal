@@ -7,6 +7,7 @@
 	let totalAbsolutesElement = portlet.querySelector('h5[data-type="total"]');
 	let obtainedAbsolutesElement = portlet.querySelector('h5[data-type="obtained"]');
 	let averageAbsolutesElement = portlet.querySelector('h5[data-type="classAverage"]');
+	let maximumAbsolutesElement = portlet.querySelector('h5[data-type="maximum"]');
 	let redirectButton = portlet.querySelector('button[data-type="redirect"]');
 
 	//If any element don't exist then add it into output div.
@@ -24,6 +25,11 @@
 	if (!isElementExist(averageAbsolutesElement)) {
 		averageAbsolutesElement = createElement("h5", "data-type", "classAverage");
 		portlet.appendChild(averageAbsolutesElement);
+	}
+
+	if(!isElementExist(maximumAbsolutesElement)){
+		maximumAbsolutesElement = createElement("h5", "data-type", "maximum");
+		portlet.appendChild(maximumAbsolutesElement);	
 	}
 
 	if (!isElementExist(redirectButton)) {
@@ -111,6 +117,7 @@
 		//Handle best off average.
 		if (tableWeightageSum != 0) {
 			totalAverageAbsolutes += scaleToBestOffWeights(rowsTotalAverageAbsolutes, tableWeightageSum, parseFloat(tableTotalWeigtage[0].textContent));
+			totalMaximumAbsolutes += scaleToBestOffWeights(rowsTotalMaximumAbsolutes, tableWeightageSum, parseFloat(tableTotalWeigtage[0].textContent));
 		}
 
 		totalWeightage += parseFloat(tableTotalWeigtage[0].textContent)
@@ -118,10 +125,11 @@
 	}
 
 	const finalTotalAverageAbsolutes = isNaN(totalAverageAbsolutes) ? "Cannot Calculate, Missing Data" : totalAverageAbsolutes.toFixed(2)
-
+	const finalTotalMaximumAbsolutes = isNaN(totalMaximumAbsolutes) ? "Cannot Calculate, Missing Data" : totalMaximumAbsolutes.toFixed(2);
 	totalAbsolutesElement.textContent = 'Total Absolutes: ' + totalWeightage.toFixed(2);
 	obtainedAbsolutesElement.textContent = 'Obtained Absolutes: ' + totalObtainedAbsolutes.toFixed(2);
 	averageAbsolutesElement.textContent = 'Class Average: ' + finalTotalAverageAbsolutes;
+	maximumAbsolutesElement.textContent = 'Maximum Absolutes: ' + finalTotalMaximumAbsolutes;
 
 	chrome.runtime.sendMessage('pageChange');
 })();
