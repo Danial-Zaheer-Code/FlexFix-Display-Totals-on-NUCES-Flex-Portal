@@ -80,6 +80,8 @@ The extension is provided as-is, without any warranty or guarantee of its functi
 
 ## Authors
 
-- [mmaarij](https://github.com/mmaarij)
+- [Muhammad Maarij](https://github.com/mmaarij)
 
-- [NabeelAhmed-090](https://github.com/NabeelAhmed-090)
+- [Nabeel Ahmed](https://github.com/NabeelAhmed-090)
+
+- [Danial Zaheer](https://github.com/Danial-Zaheer-Code)
