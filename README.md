@@ -1,6 +1,6 @@
 # What Does FlexFix Do?
 
-Flex fix allows you to display the total and obtained absolutes on the FAST NUCES Flex Student Portal. The grand total is usually blank and therefore, this extention enables you to see your progress without having to manually total your marks.
+Flex fix allows you to display the total and obtained absolutes on the FAST NUCES Flex Student Portal. The grand total is usually blank and therefore, this extention enables you to see your progress without having to manually total your marks. Also, it will display maximum and minimum absolutes along with your performance percetage.
 
 ![Screenshot](screenshot.jpg)
 
